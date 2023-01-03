@@ -4,13 +4,12 @@ import (
 	"bufio"
 	"log"
 	"os"
-	"regexp"
+	"strconv"
 	"strings"
 )
 
 var NumberOfFiles int = 0
-var name string = "jagaari hemanth"
-var Flagcheck map[string]bool
+var Flagcheck = map[string]bool{"-n": false, "-l": false, "-i": false, "-v": false, "-x": false}
 
 func GetPwd() string {
 	wrk, err := os.Getwd()
@@ -35,6 +34,8 @@ func GetPatterns(pattern string) []string {
 		}
 		i++
 	}
+	substr := pattern[start:]
+	lst = append(lst, substr)
 	return lst
 }
 func GetFilePaths(filenames []string) []string {
@@ -74,7 +75,7 @@ func FindLines(pat string, files []string) []string {
 	for _, file := range files {
 		fileName := GetFileName(file)
 		onefileLines, check := GetLines(pat, file)
-		if check == true {
+		if check {
 			totalList = append(totalList, fileName)
 		} else {
 			totalList = append(totalList, onefileLines...)
@@ -85,6 +86,7 @@ func FindLines(pat string, files []string) []string {
 func GetLines(pat string, file string) ([]string, bool) {
 
 	fileName := GetFileName(file)
+	//log.Println("in GetLines for file ", fileName)
 	var lst []string
 	f, err := os.Open(file)
 
@@ -97,20 +99,23 @@ func GetLines(pat string, file string) ([]string, bool) {
 	var lineNumber int = 1
 	for scanner.Scan() {
 		line := scanner.Text()
+		//log.Println(lineNumber, "line", line)
 		if IsMatch(line, pat) {
 
+			//log.Printf("Match for file %s in line %d\n", fileName, lineNumber)
 			var lineslices []string
 
-			if Flagcheck["-l"] == true {
+			if Flagcheck["-l"] {
 				return []string{}, true
 			}
 
 			if NumberOfFiles > 1 {
 				lineslices = append(lineslices, fileName)
 			}
-			if Flagcheck["-n"] == true {
-				lineslices = append(lineslices, string(lineNumber))
+			if Flagcheck["-n"] {
+				lineslices = append(lineslices, strconv.Itoa(lineNumber))
 			}
+			lineslices = append(lineslices, line)
 			newline := strings.Join(lineslices, ":")
 			lst = append(lst, newline)
 		}
@@ -138,14 +143,24 @@ func GetFileName(filepath string) string {
 func IsMatch(line, pat string) bool {
 	check := false
 
-	_, err := regexp.MatchString(pat, line)
-	if err == nil {
+	if findMatch(line, pat) {
 		check = true
 	}
-	if Flagcheck["-v"] == true {
-		if check == false {
+	if Flagcheck["-v"] {
+		if check {
+			check = false
+		} else {
 			check = true
 		}
 	}
 	return check
+}
+func findMatch(line, pat string) bool {
+	wordList := strings.Split(line, " ")
+	for _, wrd := range wordList {
+		if strings.Compare(wrd, pat) == 0 {
+			return true
+		}
+	}
+	return false
 }

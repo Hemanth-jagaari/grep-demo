@@ -67,6 +67,7 @@ func main() {
 
 	patternList := GetPatterns(pattern)
 
+	log.Println("Test of patternList", patternList)
 	pattern = strings.Join(patternList, "|")
 
 	NumberOfFiles = len(files)
@@ -75,8 +76,9 @@ func main() {
 	//for _, name := range files {
 	//	log.Println(readLines(name))
 	//}
-	fmt.Println(finalList)
-	fmt.Println(name)
+	for _, line := range finalList {
+		fmt.Printf("%s\n", line)
+	}
 }
 
 /*func readLines(filepath string) []string {
