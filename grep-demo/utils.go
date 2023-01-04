@@ -3,9 +3,25 @@ package main
 import (
 	"log"
 	"os"
+	"path"
 	"strings"
 )
 
+func IsValidFile(fileName string) bool {
+
+	ext := path.Ext(fileName)
+	if compare(ext, ".txt") || compare(ext, ".log") || compare(ext, ".go") || compare(ext, ".py") || compare(ext, ".java") {
+		return true
+	}
+	return false
+}
+func compare(ext, res string) bool {
+	return strings.Compare(ext, res) == 0
+}
+func IsValidPath(fPath string) bool {
+
+	return false
+}
 func GetPwd() string {
 	wrk, err := os.Getwd()
 	if err != nil {
@@ -54,17 +70,17 @@ func GetFilePaths(filenames []string) []string {
 	}
 	return lst
 }
-func GetFileName(filepath string) string {
-	n := len(filepath)
+func GetFileName(fpath string) string {
+	n := len(fpath)
 	end := n
 	start := n - 1
 	for start >= 0 {
-		if strings.Compare(filepath[start:start+1], "\\") == 0 || strings.Compare(filepath[start:start+1], "/") == 0 {
+		if strings.Compare(fpath[start:start+1], "\\") == 0 || strings.Compare(fpath[start:start+1], "/") == 0 {
 			break
 		}
 		start--
 	}
-	return filepath[start+1 : end]
+	return fpath[start+1 : end]
 }
 func GetIndex(args []string, index int) int {
 	i := 1
