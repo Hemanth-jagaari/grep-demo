@@ -1,7 +1,7 @@
 # grep-demo
 
 ```shell
-cd grep-demo
-go build -o grep
-./grep -Flags "patterns" Files.....
+cmd$ cd grep-demo
+cmd$ go build -o grep
+cmd$ grep -Flags "patterns" Files.....
 ```
