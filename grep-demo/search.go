@@ -57,9 +57,9 @@ func GetFilePaths(filenames []string) []string {
 	return lst
 }
 func Search(pattern string, flags, filenames []string) []string {
-	log.Printf("flags:%v\n", flags)
-	log.Printf("pattrens:%s\n", pattern)
-	log.Printf("filepaths:%v\n", filenames)
+	//log.Printf("flags:%v\n", flags)
+	//log.Printf("pattrens:%s\n", pattern)
+	//log.Printf("filepaths:%v\n", filenames)
 	SetFlagChecks(flags)
 	return FindLines(pattern, filenames)
 
@@ -132,7 +132,7 @@ func GetFileName(filepath string) string {
 	end := n
 	start := n - 1
 	for start >= 0 {
-		if strings.Compare(filepath[start:start+1], "\\") == 0 {
+		if strings.Compare(filepath[start:start+1], "\\") == 0 || strings.Compare(filepath[start:start+1], "/") == 0 {
 			break
 		}
 		start--

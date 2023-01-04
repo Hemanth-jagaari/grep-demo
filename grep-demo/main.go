@@ -28,9 +28,9 @@ func main() {
 
 	*/
 	args := os.Args
-	fmt.Println("In main function")
-	fmt.Printf("Type of cmd args is %T\n", args)
-	fmt.Printf("cmd line arguments are %v\n", args)
+	//fmt.Println("In main function")
+	//fmt.Printf("Type of cmd args is %T\n", args)
+	//fmt.Printf("cmd line arguments are %v\n", args)
 
 	var pattern string
 	var flags []string
@@ -61,21 +61,15 @@ func main() {
 		files = append(files, args[i])
 		i++
 	}
-	log.Printf("Raw: flags %v\n", flags)
-	log.Printf("Raw: patterrn %s\n", pattern)
-	log.Printf("Raw: files %v\n", files)
+	//log.Printf("Raw: flags %v\n", flags)
+	//log.Printf("Raw: patterrn %s\n", pattern)
+	//log.Printf("Raw: files %v\n", files)
 
 	patternList := GetPatterns(pattern)
-
-	log.Println("Test of patternList", patternList)
 	pattern = strings.Join(patternList, "|")
-
 	NumberOfFiles = len(files)
 	files = GetFilePaths(files)
 	finalList := Search(pattern, flags, files)
-	//for _, name := range files {
-	//	log.Println(readLines(name))
-	//}
 	for _, line := range finalList {
 		fmt.Printf("%s\n", line)
 	}
@@ -91,12 +85,10 @@ func main() {
 	var lst []string
 	scanner := bufio.NewScanner(f)
 	defer f.Close()
-
 	var i int = 1
 	for scanner.Scan() {
-		//fmt.Printf("line-%d:%s\n", i, scanner.Text())
 		line := fmt.Sprintf("line-%d:%s\n", i, scanner.Text())
-		//fmt.Println(line)
+		fmt.Println(line)
 		lst = append(lst, line)
 		i++
 	}
