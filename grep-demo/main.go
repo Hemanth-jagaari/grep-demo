@@ -28,9 +28,6 @@ func main() {
 
 	*/
 	args := os.Args
-	//fmt.Println("In main function")
-	//fmt.Printf("Type of cmd args is %T\n", args)
-	//fmt.Printf("cmd line arguments are %v\n", args)
 
 	var pattern string
 	var flags []string

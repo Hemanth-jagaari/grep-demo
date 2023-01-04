@@ -158,8 +158,15 @@ func IsMatch(line, pat string) bool {
 func findMatch(line, pat string) bool {
 	wordList := strings.Split(line, " ")
 	for _, wrd := range wordList {
-		if strings.Compare(wrd, pat) == 0 {
-			return true
+
+		if Flagcheck["-i"] {
+			if strings.EqualFold(wrd, pat) {
+				return true
+			}
+		} else {
+			if strings.Compare(wrd, pat) == 0 {
+				return true
+			}
 		}
 	}
 	return false
