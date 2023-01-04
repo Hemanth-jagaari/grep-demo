@@ -97,18 +97,22 @@ func GetLines(pat string, file string) ([]string, bool) {
 	defer f.Close()
 
 	var lineNumber int = 1
+	MatchCount := 0
 	for scanner.Scan() {
 		line := scanner.Text()
 		//log.Println(lineNumber, "line", line)
 		if IsMatch(line, pat) {
-
+			//MatchCount++
 			//log.Printf("Match for file %s in line %d\n", fileName, lineNumber)
 			var lineslices []string
 
-			if Flagcheck["-l"] {
+			if Flagcheck["-l"] && !Flagcheck["-v"] {
 				return []string{}, true
+			} else if Flagcheck["-l"] && Flagcheck["-v"] {
+				MatchCount++
+				lineNumber++
+				continue
 			}
-
 			if NumberOfFiles > 1 {
 				lineslices = append(lineslices, fileName)
 			}
@@ -121,6 +125,12 @@ func GetLines(pat string, file string) ([]string, bool) {
 		}
 		lineNumber++
 	}
+	if Flagcheck["-v"] && Flagcheck["-l"] {
+		if MatchCount == lineNumber-1 {
+			lst = append(lst, fileName)
+		}
+	}
+
 	if err := scanner.Err(); err != nil {
 		panic(err)
 	}
