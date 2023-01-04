@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -11,63 +10,9 @@ import (
 var NumberOfFiles int = 0
 var Flagcheck = map[string]bool{"-n": false, "-l": false, "-i": false, "-v": false, "-x": false}
 
-func GetPwd() string {
-	wrk, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	return wrk
-}
-
-func GetPatterns(pattern string) []string {
-
-	var start = 0
-	var n = len(pattern)
-	i := 0
-	var lst []string
-	for i < n-1 {
-		if strings.Compare(pattern[i:i+2], "\\|") == 0 {
-			substr := pattern[start:i]
-			start = i + 2
-			i++
-			lst = append(lst, substr)
-		}
-		i++
-	}
-	substr := pattern[start:]
-	lst = append(lst, substr)
-	return lst
-}
-func GetFilePaths(filenames []string) []string {
-	var lst []string
-	n := len(filenames)
-
-	i := 0
-	pwd := GetPwd()
-	for i < n {
-		wrd := filenames[i]
-		if strings.Compare(wrd[:1], "C") == 0 {
-			lst = append(lst, wrd)
-		} else {
-			wrd = pwd + "\\" + wrd
-			lst = append(lst, wrd)
-		}
-		i++
-	}
-	return lst
-}
 func Search(pattern string, flags, filenames []string) []string {
-	//log.Printf("flags:%v\n", flags)
-	//log.Printf("pattrens:%s\n", pattern)
-	//log.Printf("filepaths:%v\n", filenames)
 	SetFlagChecks(flags)
 	return FindLines(pattern, filenames)
-
-}
-func SetFlagChecks(flags []string) {
-	for _, flag := range flags {
-		Flagcheck[flag] = true
-	}
 }
 func FindLines(pat string, files []string) []string {
 
@@ -86,7 +31,6 @@ func FindLines(pat string, files []string) []string {
 func GetLines(pat string, file string) ([]string, bool) {
 
 	fileName := GetFileName(file)
-	//log.Println("in GetLines for file ", fileName)
 	var lst []string
 	f, err := os.Open(file)
 
@@ -100,10 +44,7 @@ func GetLines(pat string, file string) ([]string, bool) {
 	MatchCount := 0
 	for scanner.Scan() {
 		line := scanner.Text()
-		//log.Println(lineNumber, "line", line)
 		if IsMatch(line, pat) {
-			//MatchCount++
-			//log.Printf("Match for file %s in line %d\n", fileName, lineNumber)
 			var lineslices []string
 
 			if Flagcheck["-l"] && !Flagcheck["-v"] {
@@ -136,20 +77,6 @@ func GetLines(pat string, file string) ([]string, bool) {
 	}
 	return lst, false
 }
-
-func GetFileName(filepath string) string {
-	n := len(filepath)
-	end := n
-	start := n - 1
-	for start >= 0 {
-		if strings.Compare(filepath[start:start+1], "\\") == 0 || strings.Compare(filepath[start:start+1], "/") == 0 {
-			break
-		}
-		start--
-	}
-	return filepath[start+1 : end]
-}
-
 func IsMatch(line, pat string) bool {
 	check := false
 
