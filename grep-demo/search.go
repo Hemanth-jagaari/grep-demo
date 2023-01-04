@@ -62,7 +62,11 @@ func GetLines(pat string, file string) ([]string, bool) {
 			}
 			lineslices = append(lineslices, line)
 			newline := strings.Join(lineslices, ":")
-			lst = append(lst, newline)
+			newline = strings.TrimSpace(newline)
+			if strings.Compare(newline, "") != 0 || strings.Compare(newline, "\\n") != 0 {
+				lst = append(lst, newline)
+			}
+
 		}
 		lineNumber++
 	}
@@ -71,7 +75,6 @@ func GetLines(pat string, file string) ([]string, bool) {
 			lst = append(lst, fileName)
 		}
 	}
-
 	if err := scanner.Err(); err != nil {
 		panic(err)
 	}
@@ -79,7 +82,6 @@ func GetLines(pat string, file string) ([]string, bool) {
 }
 func IsMatch(line, pat string) bool {
 	check := false
-
 	if findMatch(line, pat) {
 		check = true
 	}
@@ -112,11 +114,8 @@ func findMatch(line, pat string) bool {
 	return false
 }
 func HandleFullLine(line, pat string) bool {
-
 	words := strings.Split(line, " ")
-
 	n := len(words)
-
 	count := 0
 	for _, wrd := range words {
 		if Flagcheck["-i"] {

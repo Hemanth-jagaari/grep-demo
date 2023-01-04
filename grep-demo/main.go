@@ -10,34 +10,28 @@ import (
 func main() {
 	args := os.Args
 
+	if len(args) < 3 {
+		log.Fatal("Enter Required Parameters")
+	}
 	var pattern string
 	var flags []string
 	var files []string
 
-	i := 1
 	n := len(args)
 	var index = -1
-	for i < n {
-		if strings.Compare(args[i][:1], "-") != 0 {
-			index = i
-			break
-		}
-		i++
-	}
 
-	i = 1
+	index = GetIndex(args, index)
 	if index == -1 {
 		log.Fatal("no pattern found")
 	}
 	pattern = args[index]
-	for i < index {
-		flags = append(flags, args[i])
-		i++
+	flags = AddItems(1, index, args)
+	files = AddItems(index+1, n, args)
+	if pattern == "" || pattern == " " {
+		log.Fatal("Select Other Pattern")
 	}
-	i++
-	for i < n {
-		files = append(files, args[i])
-		i++
+	if len(files) == 0 {
+		log.Fatal("Input Any file Name")
 	}
 	patternList := GetPatterns(pattern)
 	pattern = strings.Join(patternList, "|")
