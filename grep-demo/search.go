@@ -14,17 +14,19 @@ func Search(pattern string, flags, filenames []string) []string {
 	SetFlagChecks(flags)
 	return FindLines(pattern, filenames)
 }
+func SingleFileLines(pat, file string) []string {
+	fileName := GetFileName(file)
+	onefileLines, check := GetLines(pat, file)
+	if check {
+		return []string{fileName}
+	}
+	return onefileLines
+}
 func FindLines(pat string, files []string) []string {
-
 	var totalList []string
 	for _, file := range files {
-		fileName := GetFileName(file)
-		onefileLines, check := GetLines(pat, file)
-		if check {
-			totalList = append(totalList, fileName)
-		} else {
-			totalList = append(totalList, onefileLines...)
-		}
+		ans := SingleFileLines(pat, file)
+		totalList = append(totalList, ans...)
 	}
 	return totalList
 }

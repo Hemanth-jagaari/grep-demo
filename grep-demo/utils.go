@@ -99,12 +99,7 @@ func AddItems(start, end int, args []string) []string {
 	if start > end {
 		return []string{}
 	}
-	var list []string
-	for start < end {
-		list = append(list, args[start])
-		start++
-	}
-	return list
+	return args[start:end]
 }
 func GetEmptyFlags() map[string]bool {
 	var flags = map[string]bool{"-n": false, "-l": false, "-i": false, "-v": false, "-x": false}
