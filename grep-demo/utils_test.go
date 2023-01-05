@@ -10,18 +10,20 @@ import (
 func Test_GetFileName(t *testing.T) {
 	filepath := "C:/Users/Username/desktop/folder/example.txt"
 	ans := "example.txt"
-	res := GetFileName(filepath)
-	assert.Equal(t, ans, res, "Wrong fileNmae")
-
+	assert.Equal(t, ans, GetFileName(filepath), "Wrong fileName")
 	filepath = "/example.txt"
-	res = GetFileName(filepath)
-	assert.Equal(t, ans, res, "Wrong fileName")
+	assert.Equal(t, ans, GetFileName(filepath), "Wrong fileName")
+	filepath = "////file.txt"
+	assert.Equal(t, "file.txt", GetFileName(filepath), "Wrong fileName")
 
 }
 func Test_GetPwd(t *testing.T) {
 	pwd := GetPwd()
-	real, _ := os.Getwd()
+	real, err := os.Getwd()
+
+	assert.NoError(t, err, "Error in funtion")
 	assert.Equal(t, real, pwd, "wrong PWD")
+	assert.NotEqual(t, "/go-projects", real, "wrong directory")
 }
 
 func Test_GetEmptyFlags(t *testing.T) {
@@ -34,7 +36,6 @@ func Test_GetPatterns(t *testing.T) {
 	var pat = "pat1"
 	ans := GetPatterns(pat)
 	assert.Equal(t, []string{pat}, ans, "Patterns are not Equal")
-
 	pat = "pat1\\|pat2\\|pat3\\|pat4"
 	ans = GetPatterns(pat)
 	assert.Equal(t, []string{"pat1", "pat2", "pat3", "pat4"}, ans, "Pattrens are not equal")
@@ -42,7 +43,6 @@ func Test_GetPatterns(t *testing.T) {
 func Test_GetFilePaths(t *testing.T) {
 
 	ans := GetFilePaths([]string{"C:\\User\\name\\a.txt", "sample.txt", "files\\ex.txt"})
-
 	pwd := GetPwd()
 	assert.Equal(t, []string{"C:\\User\\name\\a.txt", pwd + "\\" + "sample.txt", pwd + "\\" + "files\\ex.txt"}, ans, "FIlepaths are not equal")
 }
@@ -60,4 +60,7 @@ func Test_AddItems(t *testing.T) {
 func Test_IsValidFile(t *testing.T) {
 	val := IsValidFile("sample.sql")
 	assert.Equal(t, false, val, "File Format is Not same")
+	assert.Equal(t, false, IsValidFile("file"), "File Not recognized")
+	assert.Equal(t, true, IsValidFile("sample.txt"), "file format not supported")
+	assert.Equal(t, false, IsValidFile("example.png"), "file Not supported")
 }

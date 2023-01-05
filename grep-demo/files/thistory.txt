@@ -1,0 +1,8 @@
+A balloon with xstart and xend is burst 
+by an arrow shot at x if xstart <= x <= xend 
+There is no limit to the number of arrows that 
+can be shot A shot arrow keeps traveling up 
+infinitely bursting any balloons in its path
+Given the array points, return 
+the minimum number of arrows that 
+must be shot to burst all balloons

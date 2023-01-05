@@ -1,0 +1,7 @@
+denotes a balloon whose horizontal 
+diameter stretches between xstart 
+and xend. You do not know the exact 
+y-coordinates of the balloon
+Arrows can be shot up directly balloon
+vertically in the positive y-direction 
+from different points along the x-axis 
