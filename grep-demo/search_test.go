@@ -108,7 +108,7 @@ func TestIsMatch(t *testing.T) {
 	}
 
 	// Test without -v flag.
-	Flagcheck = map[string]bool{}
+	Flagcheck["-v"] = false
 	for _, c := range cases {
 		got := IsMatch(c.line, c.pat)
 		if got != c.result {
@@ -117,7 +117,7 @@ func TestIsMatch(t *testing.T) {
 	}
 
 	// Test with -v flag.
-	Flagcheck = map[string]bool{"-v": true}
+	Flagcheck["-v"] = true
 	for _, c := range cases {
 		got := IsMatch(c.line, c.pat)
 		if got == c.result {
@@ -140,7 +140,7 @@ func TestFindMatch(t *testing.T) {
 	}
 
 	// Test without -x flag.
-	Flagcheck = map[string]bool{}
+	Flagcheck["-x"] = false
 	for _, c := range cases {
 		got := findMatch(c.line, c.pat)
 		if got != c.result {
@@ -149,7 +149,7 @@ func TestFindMatch(t *testing.T) {
 	}
 
 	// Test with -x flag.
-	Flagcheck = map[string]bool{"-x": true}
+	Flagcheck["-x"] = true
 	for _, c := range cases {
 		got := findMatch(c.line, c.pat)
 		if got != HandleFullLine(c.line, c.pat) {
