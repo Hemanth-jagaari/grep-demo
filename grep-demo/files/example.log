@@ -1,0 +1,26 @@
+
+  Id CommandLine                                                                                                                                                              
+  -- -----------                                                                                                                                                              
+   go work init
+   go work use grep-demo                                                                                                                                                            
+3 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt example.txt                                                                                              
+   4 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt example.txt                                                                                              
+   5 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt example.txt                                                                                              
+   6 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt example.txt                                                                                              
+   7 history                                                                                                                                                                  
+   8 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                          
+   9 go mod tidy                                                                                                                                                              
+  10 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                          
+  11 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                          
+  12 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                          
+  13 go run main.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                          
+  14 go run *.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                             
+  15 go build main.go                                                                                                                                                         
+  16 go build *.go                                                                                                                                                            
+  17 go run main.go serach.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                
+  18 go run main.go search.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                
+  19 go run main.go search.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                
+  20 go run main.go search.go -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                
+  21 go build main.go search.go                                                                                                                                               
+  22 ./main -f -n -l -x "pat1\|pat2\|pat3\|pat4" history.txt                                                                                                                  
+  23 history                                                                                                                                                                

@@ -20,6 +20,7 @@ func compare(ext, res string) bool {
 }
 func IsValidPath(fPath string) bool {
 
+	//Implementation
 	return false
 }
 func GetPwd() string {
@@ -86,7 +87,7 @@ func GetIndex(args []string, index int) int {
 	i := 1
 	n := len(args)
 	for i < n {
-		if strings.Compare(args[i][:1], "-") != 0 {
+		if strings.Compare(args[i][:1], "-") != 0 && !IsValidFile(args[i]) {
 			index = i
 			break
 		}

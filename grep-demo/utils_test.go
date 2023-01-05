@@ -57,3 +57,7 @@ func Test_AddItems(t *testing.T) {
 	assert.Equal(t, []string{"1", "2"}, ans, "Adding items is not equal")
 	assert.Equal(t, []string{}, AddItems(4, 3, []string{"0", "1", "2", "3", "4", "5"}), "Adding items is not equal")
 }
+func Test_IsValidFile(t *testing.T) {
+	val := IsValidFile("sample.sql")
+	assert.Equal(t, false, val, "File Format is Not same")
+}
