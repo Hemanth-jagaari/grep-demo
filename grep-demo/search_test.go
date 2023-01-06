@@ -10,7 +10,7 @@ import (
 func Test_Search(t *testing.T) {
 
 	var test_flag = []string{"-n"}
-	var test_files = []string{"C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/tsample.txt"}
+	var test_files = []string{GetPwd() + "\\files\\tsample.txt"}
 	var test_pattern = "balloon"
 
 	assert.Equal(t, []string{"1:denotes a balloon whose horizontal", "4:y-coordinates of the balloon", "5:Arrows can be shot up directly balloon"}, Search(test_pattern, test_flag, test_files), "Wrong Lines returned")
@@ -22,11 +22,11 @@ func Test_Search(t *testing.T) {
 	test_flag = append(test_flag, "-l")
 	assert.Equal(t, []string(nil), Search(test_pattern, test_flag, test_files), " wrong matching lines")
 
-	test_files = append(test_files, "C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/texample.txt")
+	test_files = append(test_files, GetPwd()+"\\files\\texample.txt")
 	assert.Equal(t, []string{"texample.txt"}, Search("Balloon", test_flag, test_files), "Not Matching")
 
 	test_flag = append(test_flag, "-x")
-	test_files = append(test_files, "C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/thistory.txt")
+	test_files = append(test_files, GetPwd()+"\\files\\thistory.txt")
 	assert.Equal(t, []string{"tsample.txt", "texample.txt", "thistory.txt"}, Search("Balloon", test_flag, test_files), "Wrong file names")
 
 }
@@ -40,26 +40,26 @@ func TestSingleFileLines(t *testing.T) {
 	}{
 		{
 			pat:       "balloon",
-			file:      "C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/texample.txt",
+			file:      GetPwd() + "\\files\\texample.txt",
 			flagcheck: map[string]bool{"-n": true, "-v": false, "-i": false, "-x": false, "-l": false},
 			expected:  []string(nil),
 		},
 		{
 			pat:       "balloons",
-			file:      "C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/texample.txt",
+			file:      GetPwd() + "\\files\\texample.txt",
 			flagcheck: map[string]bool{"-n": true, "-v": false, "-i": false, "-x": false, "-l": false},
 			expected: []string{"2:balloons taped onto a flat",
 				"4:The balloons are represented"},
 		},
 		{
 			pat:       "Balloons",
-			file:      "C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/texample.txt",
+			file:      GetPwd() + "\\files\\texample.txt",
 			flagcheck: map[string]bool{"-n": true, "-v": false, "-i": true, "-x": false, "-l": false},
 			expected:  []string{"2:balloons taped onto a flat", "4:The balloons are represented"},
 		},
 		{
 			pat:       "Balloons",
-			file:      "C:\\Users\\Hemanth\\Desktop\\go-projects\\grep-demo\\files/texample.txt",
+			file:      GetPwd() + "\\files\\texample.txt",
 			flagcheck: map[string]bool{"-n": true, "-v": false, "-i": true, "-x": false, "-l": true},
 			expected:  []string{"texample.txt"},
 		},
