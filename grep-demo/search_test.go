@@ -68,7 +68,7 @@ func TestSingleFileLines(t *testing.T) {
 		Flagcheck = tc.flagcheck
 		actual := SingleFileLines(tc.pat, tc.file)
 		if !reflect.DeepEqual(actual, tc.expected) {
-			t.Errorf("index= %d For pat=%q and file=%q, expected %q but got %q", i, tc.pat, tc.file, tc.expected, actual)
+			t.Errorf("index= %d For pat=%v and file=%v, expected %v but got %v", i, tc.pat, tc.file, tc.expected, actual)
 		}
 	}
 }
@@ -89,7 +89,7 @@ func TestHandleFullLine(t *testing.T) {
 	for _, c := range cases {
 		got := HandleFullLine(c.line, c.pat)
 		if got != c.result {
-			t.Errorf("HandleFullLine(%q, %q) == %t, want %t", c.line, c.pat, got, c.result)
+			t.Errorf("HandleFullLine(%v, %v) == %v, want %v", c.line, c.pat, got, c.result)
 		}
 	}
 }
@@ -112,7 +112,7 @@ func TestIsMatch(t *testing.T) {
 	for _, c := range cases {
 		got := IsMatch(c.line, c.pat)
 		if got != c.result {
-			t.Errorf("IsMatch(%q, %q) == %t, want %t", c.line, c.pat, got, c.result)
+			t.Errorf("IsMatch(%v %v) == %v, want %v", c.line, c.pat, got, c.result)
 		}
 	}
 
@@ -121,7 +121,7 @@ func TestIsMatch(t *testing.T) {
 	for _, c := range cases {
 		got := IsMatch(c.line, c.pat)
 		if got == c.result {
-			t.Errorf("IsMatch(%q, %q) == %t, want %t", c.line, c.pat, got, !c.result)
+			t.Errorf("IsMatch(%v, %v) == %v, want %v", c.line, c.pat, got, !c.result)
 		}
 	}
 }
@@ -144,7 +144,7 @@ func TestFindMatch(t *testing.T) {
 	for _, c := range cases {
 		got := findMatch(c.line, c.pat)
 		if got != c.result {
-			t.Errorf("findMatch(%q, %q) == %t, want %t", c.line, c.pat, got, c.result)
+			t.Errorf("findMatch(%v, %v) == %v, want %v", c.line, c.pat, got, c.result)
 		}
 	}
 
@@ -153,7 +153,7 @@ func TestFindMatch(t *testing.T) {
 	for _, c := range cases {
 		got := findMatch(c.line, c.pat)
 		if got != HandleFullLine(c.line, c.pat) {
-			t.Errorf("findMatch(%q, %q) == %t, want %t", c.line, c.pat, got, c.line == c.pat)
+			t.Errorf("findMatch(%v, %v) == %v, want %v", c.line, c.pat, got, c.line == c.pat)
 		}
 	}
 }
